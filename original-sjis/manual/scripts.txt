@@ -1,0 +1,82 @@
+各スクリプトの使いかた
+
+■ int2csv.pl
+
+　MARS 付属のデータ mars_cd.dat を CSV 化します。
+
+    perl int2csv.pl mars_cd.dat > mars_cd.csv
+
+
+■ sd2csv.pl
+
+　MARS 付属のデータ mars_sd.dat を CSV 化します。
+
+    perl sd2csv.pl mars_sd.dat > mars_sd.csv
+
+
+■ cd2edge.pl
+
+　mars_cd.csv、mars_sd.csv から edges.csv を生成します。
+　本来 edges.csv は mars_cd.csv だけから生成可能ですが、コメント
+（路線名・駅名）をつけるために mars_sd.csv も使用します。
+
+    perl cd2edge.pl > edges.csv
+
+　引数に mars_cd.csv、mars_sd.csv を指定できないので、両ファイル
+は必ずカレントディレクトリに置くこと。また、両ファイルの名前は変
+更しないこと。
+
+
+■ edge2cs.pl
+
+　edges.csv から css.csv を生成します。
+
+    perl edge2cs.pl edges.csv > css.csv
+
+
+■ makedata.pl 
+
+　edges.csv、css.csv から制約式ファイルを生成します。
+
+    perl makedata.pl Lee > foo.mod
+
+　引数に edges.csv、css.csv を指定できないので、両ファイルは必ず
+カレントディレクトリに置くこと。また、両ファイルの名前は変更しな
+いこと。
+　引数に「計算したいタイプ」を指定できます（Lee/Pe/B/B8）。省略
+すると Lee が指定されたものとみなします。
+
+
+■ loopchk.pl
+
+　計算結果（res.txt）、edges.csv、css.csv を入力すると、res.txt
+中の独立ループを検出し、その独立ループを禁止する制約式を指定され
+た制約式ファイルに追加します。
+
+    perl loopchk.pl foo Lee
+
+　引数に res.txt、edges.csv、css.csv を指定できないので、３ファ
+イルは必ずカレントディレクトリに置くこと。また、３ファイルの名前
+は変更しないこと。
+　上記の実行例では、独立ループ禁止制約式は foo.mod に追加します
+（引数には拡張子抜きのファイル名を指定）。独立ループが見つからな
+ければ終了コード100、見つかれば終了コード０を返します。
+
+　独立ループが見つからないまま正常終了した場合、参考として制約式
+を１つ表示します。この制約式は「得られた経路を個別に否定するため
+のもの」です。たった今チェックした経路は（独立ループがないので）
+形状としては正しいはずですが、運賃計算の特例などの問題で、解答と
+しては採用できない、ということがまれにあります。このような場合、
+「今出てきた経路はダメ」という制約式を追加してあらためて解けば、
+「次善の策」が出てきます。この、「今出てきた経路はダメ」という制
+約式が表示されるわけです。
+　表示された制約式は標準出力に吐き出されるので、リダイレクトして
+ファイルに出力することができるほか、Windows XP などの「コマンド
+プロンプト」では、画面に表示されたものを範囲指定してコピーするこ
+ともできます。
+
+
+■ coloring.pl、txt2sw.pl、sw2ps.pl
+
+　maps.txt を参照。
+
