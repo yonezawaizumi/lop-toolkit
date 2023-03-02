@@ -17,5 +17,5 @@ s.t. amagasaki_3_1: e907 + e314 <= 1;
 s.t. amagasaki_3_2: e907 + e315 <= 1;
 s.t. amagasaki: e905 + e906 + e907 + e308 <= 1;
 s.t. oosaka_amagasaki: e904 + e906 + e907 <= 1;
-s.t. amagasaki_disabled: e905 + e907 = 0;
+s.t. amagasaki_disabled: e905 = 0;
 s.t. shin_oosaka_disabled: e902 = 0;
